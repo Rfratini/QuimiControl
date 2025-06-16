@@ -1,0 +1,21 @@
+{
+  "name": "arduino-api",
+  "version": "2.1.0",
+  "description": "API para comunicação serial com Arduino. Atualizada para incluir suporte a novos sensores e melhorias na performance.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "SPTECH_2022 by MariseMiranda",
+  "contributors": [
+    "Eduardo Verri",
+    "Matheus Matos"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mysql2": "^2.3.3",
+    "dotenv": "^16.4.5",
+    "serialport": "^10.4.0"
+  }
+}
