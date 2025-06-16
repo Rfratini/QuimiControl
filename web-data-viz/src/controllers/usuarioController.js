@@ -77,8 +77,30 @@ function cadastrar(req, res) {
             );
     }
 }
+function buscarumidade(req, res) {
+    var fk_empresa = req.params.fk_empresa;
+
+    if (fk_empresa == undefined) {
+        res.status(400).send("Seu fkEmpresa está undefined!");
+    } else {
+        usuarioModel.buscarumidade(fk_empresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
+
+}
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    buscarumidade
 }

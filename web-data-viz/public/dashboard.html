@@ -25,8 +25,8 @@
 <!-- <body onload=" atualizarFeed()"> -->
 
 <body>
-
-    <body onload="validarSessao()">
+ 
+    <body onload="validarSessao(), plotar_info2()">
     <header id="indexTop">
         <div class="header-content">
             <nav class="topNav">
@@ -236,4 +236,238 @@
             clearInterval(plotar_textos);
         }, 1000)
     }, 500)
+
+    // 
+
+    document.getElementById('boxsensor1').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 1);
+        sessionStorage.setItem('Fk_sensor', 1);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor2').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 1);
+        sessionStorage.setItem('Fk_sensor', 2);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor3').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 1);
+        sessionStorage.setItem('Fk_sensor', 3);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor4').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 2);
+        sessionStorage.setItem('Fk_sensor', 1);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor5').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 2);
+        sessionStorage.setItem('Fk_sensor', 2);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor6').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 2);
+        sessionStorage.setItem('Fk_sensor', 3);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor7').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 3);
+        sessionStorage.setItem('Fk_sensor', 1);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor8').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 3);
+        sessionStorage.setItem('Fk_sensor', 2);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor9').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 3);
+        sessionStorage.setItem('Fk_sensor', 3);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor10').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 4);
+        sessionStorage.setItem('Fk_sensor', 1);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor11').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 4);
+        sessionStorage.setItem('Fk_sensor', 2);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor12').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 4);
+        sessionStorage.setItem('Fk_sensor', 3);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor13').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 5);
+        sessionStorage.setItem('Fk_sensor', 1);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor14').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 5);
+        sessionStorage.setItem('Fk_sensor', 2);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor15').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 5);
+        sessionStorage.setItem('Fk_sensor', 3);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor16').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 6);
+        sessionStorage.setItem('Fk_sensor', 1);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor17').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 6);
+        sessionStorage.setItem('Fk_sensor', 2);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor18').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 6);
+        sessionStorage.setItem('Fk_sensor', 3);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor19').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 7);
+        sessionStorage.setItem('Fk_sensor', 1);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor20').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 7);
+        sessionStorage.setItem('Fk_sensor', 2);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor21').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 7);
+        sessionStorage.setItem('Fk_sensor', 3);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor22').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 8);
+        sessionStorage.setItem('Fk_sensor', 1);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor23').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 8);
+        sessionStorage.setItem('Fk_sensor', 2);
+        window.location.href = 'dashboardSensor.html';
+    });
+    document.getElementById('boxsensor24').addEventListener('click', () => {
+        //Colocar posterior para api funcionar na outra página
+        sessionStorage.setItem('Fk_Canteiro', 8);
+        sessionStorage.setItem('Fk_sensor', 3);
+        window.location.href = 'dashboardSensor.html';
+    });
+    var fk_empresa = 1;
+    //Plotagem de dados na dashboard
+    function plotar_info1() {
+        var qtd_canteiros = [];
+        var id_sensores = 0;
+        fetch(`/usuarios/buscarcanteiros/${fk_empresa}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                console.log("Canteiros Puxado com sucesso")
+                qtd_canteiros = data;
+                console.log(qtd_canteiros);
+            })
+            .catch(error => {
+                console.log("Erro no catch:", error);
+            })
+        var sensores_id = [];
+        fetch(`/usuarios/buscarqtdsensores/${fk_empresa}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                console.log("Sensores Ids Puxado com sucesso")
+                idsensores = data;
+                console.log(idsensores)
+                plotar_info2();
+            })
+            .catch(error => {
+                console.log("Erro no catch:", error);
+            })
+    }
+    function plotar_info2() {
+        var dados_coletados = [];
+        console.log(fk_empresa);
+        fetch(`/usuarios/buscarumidade/${fk_empresa}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                console.log("Umidade Puxado com sucesso")
+                dados_coletados = data;
+
+                let contador = 1;
+                for (let i = dados_coletados.length - 1; i >= 0; i--) {
+
+                    const elemento = document.getElementById(`sensor${contador}`);
+                    const elemento2 = document.getElementById(`boxsensor${contador}`);
+                    // var fk_canteiro = idsensores[i].fkCanteiro;
+                    // var fk_sensor = idsensores[i].idSensor;
+                    var umidade = Number(dados_coletados[i].umidadeSolo);
+                    var status = Number(dados_coletados[i].statusAtivacao);
+                    elemento.innerHTML = `${umidade}C°`;
+                    if (status == 0) {
+                        elemento.innerHTML = `Inativo`;
+                        elemento2.classList.add('alert-alerta');
+                    }
+                    else if (umidade >= 15 && umidade <= 20) {
+                        elemento2.classList.add('alert-ok');
+                    } else {
+                        elemento2.classList.add('alert-alerta');
+                    }
+                    contador++;
+                }
+                console.log(dados_coletados);
+
+            })
+            .catch(error => {
+                console.log("Erro no catch:", error);
+            });
+    }
+
 </script>

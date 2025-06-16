@@ -4,8 +4,15 @@ function buscarumidade(fk_empresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", fk_empresa);
 
     var instrucaoSql = `
-       select idLeitura,umidadeSolo,statusAtivacao from leitura as l  join sensor as s on (l.fkSensor, l.fkSetor, l.fkEmpresa) = (s.idSensor, s.fkSetor, s.fkEmpresa)
-        where l.fkEmpresa = '${fk_empresa}'ORDER BY l.idLeitura desc limit 24;
+       SELECT l.idLeitura, l.umidadeSolo, s.statusAtivacao
+        FROM leitura AS l
+        JOIN sensor AS s
+            ON l.fkSensor = s.idSensor
+           AND l.fkSetor = s.fkSetor
+           AND l.fkEmpresa = s.fkEmpresa
+        WHERE l.fkEmpresa = '${fk_empresa}'
+        ORDER BY l.idLeitura DESC
+        LIMIT 24;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

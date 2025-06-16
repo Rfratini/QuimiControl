@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/DashSensor.css">
+    <title>SmartBerry</title>
+</head>
+
+<body onload="obter_dados_kpis()">
+    <section id="indexTop">
+        <header>
+            <div class="header-content">
+                <nav class="topNav">
+                    <div class="left">
+                        <div class="botao-vertical">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </div>
+                        <h2 id="logoTexto">SmartBerry</h2>
+                    </div>
+                    <div class="mid">
+                        <button class="acont">Voltar na Visão Geral</button>
+                    </div>
+            </div>
+            </nav>
+            </div>
+        </header>
+    </section>
+    <section class="dashboard-screen">
+        <div class="elements-menu">
+            <div class="menu-vertical">
+                <img src="./assets/perfil-icon.png" alt="icon-Perfil" class="icon-Perfil">
+                <span class="title-welcome">Bem-Vindo Usuário</span>
+                <ul class="menu-list">
+                    <li class="option-menu backto-alto"><u>Visão Geral</u></li>
+                    <li class="option-menu backto-his"><u>Histórico de Alertas</u></li>
+                    <li class="option-menu"><u>Alterar Senha</u></li>
+                </ul>
+                <button class="button-sair">Sair da Conta</button>
+            </div>
+            <div class="menu-shadow"></div>
+        </div>
+        <div class="content-dashboard">
+            <h2 class="title-info-sensor" id="titulo_dash">Canteiro 3 - Sensor 9</h2>
+            <div class="kpis-box">
+                <div class="kpi-content">
+                    <span class="title-kpi">Status sensor</span>
+                    <div class="kpi-box" id="status_sensor">Ativo</div>
+                </div>
+                <div class="kpi-content">
+                    <span class="title-kpi">Variação nas últimas 24h</span>
+                    <div class="kpi-box" id="variacao_24h">12%</div>
+                </div>
+                <div class="kpi-content">
+                    <span class="title-kpi">Quantidade de alertas gerados p/Semana </span>
+                    <div class="kpi-box" id="qtd_alertas">5</div>
+                </div>
+            </div>
+            <div class="grafico-box">
+                <div class="legenda">
+                    <span class="title-legenda">Legenda - Parâmetros para alerta</span>
+                    <div class="level-alertas">
+                        <div class="red">
+                            <span class="subtitle-legenda">
+                                <=60% </span>
+                                    <span class="subtitle-legenda">Perigo</span>
+                        </div>
+                        <div class="yellow">
+                            <span class="subtitle-legenda">
+                                <70% </span>
+                                    <span class="subtitle-legenda">Alerta</span>
+                        </div>
+                        <div class="green">
+                            <span class="subtitle-legenda">70% </span>
+                            <span class="subtitle-legenda">Ideal</span>
+                        </div>
+                        <div class="yellow">
+                            <span class="subtitle-legenda">>80% </span>
+                            <span class="subtitle-legenda">Alerta</span>
+                        </div>
+                        <div class="red">
+                            <span class="subtitle-legenda">>=90% </span>
+                            <span class="subtitle-legenda">Perigo</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grafico">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</html>
+<script>
+    var fk_canteiro = sessionStorage.Fk_Canteiro;
+    var fk_sensor = sessionStorage.Fk_sensor;
+    var fk_empresa = sessionStorage.ID_EMPRESA;
+    titulo_dash.innerHTML = `Canteiro ${fk_canteiro} - Sensor ${Number(fk_canteiro - 1) * 3 + Number(fk_sensor)}`;
+    document.querySelector('.botao-vertical').addEventListener('click', () => {
+        const menu = document.querySelector('.elements-menu');
+        const botao = document.querySelector('.botao-vertical');
+        menu.classList.toggle('open-menu');
+        botao.classList.toggle('x');
+    });
+    document.querySelector('.menu-shadow').addEventListener('click', () => {
+        const menu = document.querySelector('.elements-menu');
+        const botao = document.querySelector('.botao-vertical');
+        menu.classList.remove('open-menu');
+        botao.classList.remove('x');
+    });
+    document.querySelector('.acont').addEventListener('click', () => {
+        window.location.href = 'dashAlto.html';
+    });
+    document.querySelector('.backto-alto').addEventListener('click', () => {
+        window.location.href = 'dashAlto.html';
+    });
+    document.querySelector('.button-sair').addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
+    document.querySelector('.backto-his').addEventListener('click', () => {
+        window.location.href = 'HistoricodeAlertas.html';
+    });
+    const texto_bem_vindo = document.querySelector('.title-welcome');
+
+    var plotar_textos = setInterval(() => {
+        texto_bem_vindo.innerHTML = `Bem-Vindo, ${sessionStorage.NOME_USUARIO}`;
+        setTimeout(() => {
+            clearInterval(plotar_textos);
+        }, 1000)
+    }, 500)
+
+    var dados_grafico_umidade = [];
+    var dados_grafico_label = [];
+    var dados_dash = {
+        labels: dados_grafico_label,
+        datasets: [{
+            label: 'Temperatura(C°)',
+            borderColor: 'green',
+            data: dados_grafico_umidade,
+            tension: 0.1,
+            pointRadius: 0,
+            segment: {
+                borderColor: ctx => {
+                    const comeco = ctx.p0.parsed.y;
+                    const final = ctx.p1.parsed.y;
+                    if (comeco < 15 || final > 20) {
+                        return 'red';
+                    }
+                    else {
+                        return 'green';
+                    }
+                }
+            },
+        }]
+    }
+
+    function obter_dados_kpis() {
+        fetch(`/usuarios/statussensor/${fk_empresa}/${fk_canteiro}/${fk_sensor}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                console.log("Status do sensor puxado")
+                console.log(data);
+                if (data[0].statusAtivacao == 1) {
+                    status_sensor.innerHTML = `Ativo`
+                    status_sensor.classList.remove('inativo');
+                    status_sensor.classList.add('ativo');
+                }
+                else {
+                    status_sensor.innerHTML = `Inativo`
+                    status_sensor.classList.remove('ativo');
+                    status_sensor.classList.add('inativo');
+                }
+            })
+            .catch(error => {
+                console.log("Erro no catch:", error);
+            })
+        fetch(`/usuarios/variacao24/${fk_empresa}/${fk_canteiro}/${fk_sensor}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                console.log("Variação do sensor puxada")
+                console.log(data);
+                variacao_24h.innerHTML = `${Number(data[0].variacao)}%`
+
+            })
+            .catch(error => {
+                console.log("Erro no catch:", error);
+            })
+        fetch(`/usuarios/buscaralertasdasemana/${fk_empresa}/${fk_canteiro}/${fk_sensor}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                console.log("Quantidade de alertas puxada")
+                console.log(data);
+                qtd_alertas.innerHTML = `${Number(data[0].qtdAlerta)}`
+
+            })
+            .catch(error => {
+                console.log("Erro no catch:", error);
+            })
+        fetch(`/usuarios/obterdadosdeumidade/${fk_empresa}/${fk_canteiro}/${fk_sensor}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                console.log("dados da umidade do sensor puxada")
+                console.log("Dados recebidos", data);
+                const opcoes_data = {
+                    timeZone: 'America/Sao_Paulo',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+
+                for (let i = data.length - 1; i >= 0; i--) {
+                    var data_f = new Date(data[i].dtColeta)
+                    var data_formatada = data_f.toLocaleString('pt-BR', opcoes_data)
+                    dados_grafico_umidade.push(data[i].umidadeSolo)
+                    dados_grafico_label.push(data_formatada);
+                }
+                console.log(dados_grafico_label);
+                console.log(dados_grafico_umidade);
+                plotargraficos();
+            })
+            .catch(error => {
+                console.log("Erro no catch:", error);
+            })
+    }
+    var grafico_umidade = null;
+    function plotargraficos() {
+        const ctx = document.getElementById('myChart');
+        const dia = new Date();
+        const formatDia = dia.toLocaleDateString('pt-BR');
+        grafico_umidade = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dados_grafico_label,
+                datasets: [{
+                    label: 'Umidade do solo',
+                    borderColor: 'green',
+                    data: dados_grafico_umidade,
+                    tension: 0.1,
+                    pointRadius: 0,
+                    segment: {
+                        borderColor: ctx => {
+                            const comeco = ctx.p0.parsed.y;
+                            const final = ctx.p1.parsed.y;
+                            if (comeco <= 60 || final <= 60) {
+                                return 'red';
+                            }
+                            else if (comeco < 70 || final < 70) {
+                                return 'yellow';
+                            }
+                            else if ((comeco > 70 || final > 70) && (comeco < 70 || final < 70)) {
+                                return 'green';
+                            }
+                            else if (comeco >= 80 || final >= 80) {
+                                return 'yellow';
+                            }
+                            else if (comeco >= 90 || final >= 90) {
+                                return 'red';
+                            }
+                        }
+                    },
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Historico de umidade do sensor no dia ' + formatDia,
+                        font: {
+                            size: 15,
+                        },
+                        padding: {
+                            top: 20,
+                            bottom: 30
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: function (value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        setTimeout(() => {
+            atualizargrafico();
+        }, 1000)
+    }
+    function atualizargrafico() {
+        fetch(`/usuarios/atualizardadosdeumidade/${fk_empresa}/${fk_canteiro}/${fk_sensor}`, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                const opcoes_data = {
+                    timeZone: 'America/Sao_Paulo',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+                console.log("dados da umidade do sensor Atualizada")
+                dados_grafico_label.shift();
+                dados_grafico_umidade.shift();
+                dados_grafico_umidade.push(data[0].umidadeSolo)
+                var data_f = new Date(data[0].dtColeta)
+                var data_formatada = data_f.toLocaleString('pt-BR', opcoes_data)
+                dados_grafico_label.push(data_formatada);
+                console.log(dados_grafico_umidade);
+                grafico_umidade.destroy();
+                plotargraficos();
+            })
+            .catch(error => {
+                console.log("Erro no catch:", error);
+            })
+    }
+</script>
