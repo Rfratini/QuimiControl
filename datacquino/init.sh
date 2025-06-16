@@ -26,8 +26,8 @@ fi
 echo ''
 echo 'Configurações de criação de dados'
 read -p "Insira o id da empresa para inserção: " EMPRESA
-read -p "Insira a quantidade de canteiros: " CANTEIROS
-read -p "Insira a quantidade de sensores por canteiro: " SENSORES
+read -p "Insira a quantidade de setores: " SETORES
+read -p "Insira a quantidade de sensores por setor: " SENSORES
 echo ''
 
 # Novas configurações de simulação
@@ -52,7 +52,7 @@ DB_SENHA = '$SENHA'
 DB_DATABASE = '$DATABASE'
 DB_PORT = $PORTA
 ID_EMPRESA = $EMPRESA
-QTD_CANTEIROS = $CANTEIROS
+QTD_SETORES = $SETORES
 QTD_SENSORES = $SENSORES
 OP_INSERIR = $INSERIR
 USAR_SIMULACAO = $USAR_SIMULACAO

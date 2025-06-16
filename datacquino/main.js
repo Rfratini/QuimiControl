@@ -12,8 +12,8 @@ let HABILITAR_OPERACAO_INSERIR;
 process.env.OP_INSERIR == 'true' ? HABILITAR_OPERACAO_INSERIR = true : HABILITAR_OPERACAO_INSERIR = false;
 
 function simularLeiturasSensores() {
-    const quantidadeDeCanteiros = process.env.QTD_CANTEIROS || 8;
-    const quantidadeDeSensoresPorCanteiro = process.env.QTD_SENSORES || 3;
+    const quantidadeDeSetores = process.env.QTD_Setores || 8;
+    const quantidadeDeSensoresPorSetor = process.env.QTD_SENSORES || 3;
     const idEmpresa = process.env.ID_EMPRESA || 1;
     const umidadeMin = parseInt(process.env.SIMULACAO_UMIDADE_MIN) || 50;
     const umidadeMax = parseInt(process.env.SIMULACAO_UMIDADE_MAX) || 80;
@@ -21,17 +21,17 @@ function simularLeiturasSensores() {
     const valoresSensorCapacitivo = {};
     let valuesInsercao = '';
 
-    for (let fkCanteiro = 1; fkCanteiro <= quantidadeDeCanteiros; fkCanteiro++) {
-        valoresSensorCapacitivo[`canteiro${fkCanteiro}`] = {};
+    for (let fkSetor = 1; fkSetor <= quantidadeDeSetores; fkSetor++) {
+        valoresSensorCapacitivo[`Setor${fkSetor}`] = {};
 
-        for (let fkSensor = 1; fkSensor <= quantidadeDeSensoresPorCanteiro; fkSensor++) {
+        for (let fkSensor = 1; fkSensor <= quantidadeDeSensoresPorSetor; fkSensor++) {
             const valorCapturaVirtual = Math.floor(Math.random() * (umidadeMax - umidadeMin + 1)) + umidadeMin;
 
-            valoresSensorCapacitivo[`canteiro${fkCanteiro}`][`sensor${fkSensor}`] = valorCapturaVirtual;
+            valoresSensorCapacitivo[`Setor${fkSetor}`][`sensor${fkSensor}`] = valorCapturaVirtual;
 
-            let conjuntoValores = `(${idEmpresa}, ${fkCanteiro}, ${fkSensor}, ${valorCapturaVirtual})`;
+            let conjuntoValores = `(${idEmpresa}, ${fkSetor}, ${fkSensor}, ${valorCapturaVirtual})`;
 
-            if (fkCanteiro == quantidadeDeCanteiros && fkSensor == quantidadeDeSensoresPorCanteiro) {
+            if (fkSetor == quantidadeDeSetores && fkSensor == quantidadeDeSensoresPorSetor) {
                 valuesInsercao += `${conjuntoValores}`;
             } else {
                 valuesInsercao += `${conjuntoValores}, `;
@@ -41,7 +41,7 @@ function simularLeiturasSensores() {
 
     return {
         valores: valoresSensorCapacitivo,
-        query: `INSERT INTO leitura (fkEmpresa, fkCanteiro, fkSensor, umidadeSolo) VALUES ${valuesInsercao};`
+        query: `INSERT INTO leitura (fkEmpresa, fkSetor, fkSensor, umidadeSolo) VALUES ${valuesInsercao};`
     };
 }
 
@@ -104,13 +104,13 @@ const serial = async (valoresSensorCapacitivo) => {
             const valores = data.split(';');
             const sensorCapacitivo = parseInt(valores[0]);
             const idEmpresa = process.env.ID_EMPRESA;
-            const quantidadeDeCanteiros = process.env.QTD_CANTEIROS;
-            const quantidadeDeSensoresPorCanteiros = process.env.QTD_SENSORES;
+            const quantidadeDeSetores = process.env.QTD_SETORES;
+            const quantidadeDeSensoresPorSetores = process.env.QTD_SENSORES;
 
             let valuesInsercao = '';
-            for (let fkCanteiro = 1; fkCanteiro <= quantidadeDeCanteiros; fkCanteiro++) {
-                valoresSensorCapacitivo[`canteiro${fkCanteiro}`] = {};
-                for (let fkSensor = 1; fkSensor <= quantidadeDeSensoresPorCanteiros; fkSensor++) {
+            for (let fkSetor = 1; fkSetor <= quantidadeDeSetores; fkSetor++) {
+                valoresSensorCapacitivo[`Setor${fkSetor}`] = {};
+                for (let fkSensor = 1; fkSensor <= quantidadeDeSensoresPorSetores; fkSensor++) {
                     const modificador = Math.random();
                     let valorCapturaVirtual;
 
@@ -121,11 +121,11 @@ const serial = async (valoresSensorCapacitivo) => {
                             valorCapturaVirtual = sensorCapacitivo
                         ;
 
-                    valoresSensorCapacitivo[`canteiro${fkCanteiro}`][`sensor${fkSensor}`] = valorCapturaVirtual;
+                    valoresSensorCapacitivo[`Setor${fkSetor}`][`sensor${fkSensor}`] = valorCapturaVirtual;
 
-                    let conjuntoValores = `(${idEmpresa}, ${fkCanteiro}, ${fkSensor}, ${valorCapturaVirtual})`
+                    let conjuntoValores = `(${idEmpresa}, ${fkSetor}, ${fkSensor}, ${valorCapturaVirtual})`
 
-                    if (fkCanteiro == quantidadeDeCanteiros && fkSensor == quantidadeDeSensoresPorCanteiros) {
+                    if (fkSetor == quantidadeDeSetores && fkSensor == quantidadeDeSensoresPorSetores) {
                         valuesInsercao += `${conjuntoValores}`;
                     } else {
                         valuesInsercao += `${conjuntoValores}, `;
@@ -135,7 +135,7 @@ const serial = async (valoresSensorCapacitivo) => {
             
             if (HABILITAR_OPERACAO_INSERIR) {
                 await poolBancoDados.execute(
-                    `INSERT INTO leitura (fkEmpresa, fkCanteiro, fkSensor, umidadeSolo) VALUES ${valuesInsercao};`
+                    `INSERT INTO leitura (fkEmpresa, fkSetor, fkSensor, umidadeSolo) VALUES ${valuesInsercao};`
                 );
                 console.log("Valores inseridos no banco com sucesso!\n", valoresSensorCapacitivo);
                 console.log('-----------------------------------------------------');

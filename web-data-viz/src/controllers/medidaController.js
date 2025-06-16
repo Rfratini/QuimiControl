@@ -1,48 +1,111 @@
 var medidaModel = require("../models/medidaModel");
 
-function buscarUltimasMedidas(req, res) {
+function buscarumidade(req, res) {
+    var fk_empresa = req.params.fk_empresa;
 
-    const limite_linhas = 7;
+    if (fk_empresa == undefined) {
+        res.status(400).send("Seu fkEmpresa está undefined!");
+    } else {
+        usuarioModel.buscarumidade(fk_empresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
 
-    var idAquario = req.params.idAquario;
-
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
-
-    medidaModel.buscarUltimasMedidas(idAquario, limite_linhas).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
 }
+function statussensor(req, res) {
+    var fk_empresa = req.params.fk_empresa;
+    var fk_setor = req.params.fk_setor;
+    var fk_sensor = req.params.fk_sensor;
 
+    if (fk_empresa == undefined) {
+        res.status(400).send("Seu fkEmpresa está undefined!");
+    } else if (fk_sensor == undefined) {
+        res.status(400).send("Seu fkSensor está undefined!");
+    } else if (fk_setor == undefined) {
+        res.status(400).send("Seu fk_setor está undefined!");
+    } else {
+        medidaModel.statussensor(fk_empresa, fk_setor, fk_sensor)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
 
-function buscarMedidasEmTempoReal(req, res) {
+}
+function variacao24(req, res) {
+    var fk_empresa = req.params.fk_empresa;
+    var fk_setor = req.params.fk_setor;
+    var fk_sensor = req.params.fk_sensor;
 
-    var idAquario = req.params.idAquario;
+    if (fk_empresa == undefined) {
+        res.status(400).send("Seu fkEmpresa está undefined!");
+    } else if (fk_sensor == undefined) {
+        res.status(400).send("Seu fkSensor está undefined!");
+    } else if (fk_setor == undefined) {
+        res.status(400).send("Seu fk_setor está undefined!");
+    } else {
+        medidaModel.variacao24(fk_empresa, fk_setor, fk_sensor)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
 
-    console.log(`Recuperando medidas em tempo real`);
+}
+function buscaralertasdasemana(req, res) {
+    var fk_empresa = req.params.fk_empresa;
+    var fk_setor = req.params.fk_setor;
+    var fk_sensor = req.params.fk_sensor;
 
-    medidaModel.buscarMedidasEmTempoReal(idAquario).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
+    if (fk_empresa == undefined) {
+        res.status(400).send("Seu fkEmpresa está undefined!");
+    } else if (fk_sensor == undefined) {
+        res.status(400).send("Seu fkSensor está undefined!");
+    } else if (fk_setor == undefined) {
+        res.status(400).send("Seu fk_setor está undefined!");
+    } else {
+        medidaModel.buscaralertasdasemana(fk_empresa, fk_setor, fk_sensor)
+            .then(
+                function (resultado) {
+                    res.json(resultado)
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
+
 }
 
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
-
+    buscarumidade,
+    statussensor,
+    variacao24,
+    buscaralertasdasemana
 }
