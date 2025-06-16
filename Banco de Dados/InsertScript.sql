@@ -3,16 +3,16 @@ use QuimiControl;
 insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
 
 INSERT INTO setor (fkEmpresa, descricao) VALUES
-(1, 'Canteiro 1'),
-(1, 'Canteiro 2'),
-(1, 'Canteiro 3'),
-(1, 'Canteiro 4'),
-(1, 'Canteiro 5'),
-(1, 'Canteiro 6'),
-(1, 'Canteiro 7'),
-(1, 'Canteiro 8');
+(1, 'Setor 1'),
+(1, 'Setor 2'),
+(1, 'Setor 3'),
+(1, 'Setor 4'),
+(1, 'Setor 5'),
+(1, 'Setor 6'),
+(1, 'Setor 7'),
+(1, 'Setor 8');
 
-INSERT INTO sensor (fkEmpresa, fkCanteiro, statusAtivacao, dtInstalacao) VALUES
+INSERT INTO sensor (fkEmpresa, fkSetor, statusAtivacao, dtInstalacao) VALUES
 (1, 1, 1, '2024-01-01 08:00:00'),
 (1, 1, 1, '2024-01-01 08:10:00'),
 (1, 1, 0, '2024-01-01 08:20:00'),
