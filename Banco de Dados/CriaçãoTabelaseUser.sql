@@ -74,6 +74,9 @@ CREATE TABLE alerta (
 DROP USER IF EXISTS webdataviz;
 CREATE USER 'webdataviz'@'%' IDENTIFIED BY 'Webdataviz#123.';
 GRANT ALL PRIVILEGES ON QuimiControl.* TO 'webdataviz'@'%';
+DROP USER IF EXISTS dataacquino;
+CREATE USER 'dataacquino'@'%' IDENTIFIED BY 'dataacquino#123.';
+GRANT INSERT ON QuimiControl.* TO 'dataacquino'@'%';
 
 flush privileges;
 
