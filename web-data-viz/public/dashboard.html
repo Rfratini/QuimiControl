@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaTech | Dashboards</title>
+
+    
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../css/estilo.css" />
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+    <link rel="stylesheet" href="css/DashAlto.css">
+
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<!-- <body onload=" atualizarFeed()"> -->
+
+<body>
+
+    <body onload="validarSessao()">
+    <header id="indexTop">
+        <div class="header-content">
+            <nav class="topNav">
+                <div class="left">
+                    <div class="botao-vertical">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <h2 id="logoTexto">SmartBerry</h2>
+                    <div class="barra-vertical"></div>
+                    <h3 class="subtitle-nav">Visão geral do estoque</h3>
+                </div>
+        </div>
+        </nav>
+        </div>
+    </header>
+    <section class="dashboard-screen">
+        <div class="elements-menu">
+            <div class="menu-vertical">
+                <img src="./assets/perfil-icon.png" alt="icon-Perfil" class="icon-Perfil">
+                <span class="title-welcome">Bem-Vindo Usuário</span>
+                <ul class="menu-list">
+                    <li class="option-menu backto-his"><u>Histórico de Alertas</u></li>
+                    <li class="option-menu"><u>Alterar Senha</u></li>
+                </ul>
+                <button class="button-sair" onclick="limparSessao()">Sair da Conta</button>
+            </div>
+            <div class="menu-shadow"></div>
+        </div>
+        <div class="content-dashboard">
+            <div class="legenda-Alto">
+                <div class="legenda-esquerda">
+                    <span>Medição de Temperatura(C°) Em tempo Real</span>
+                </div>
+                <div class="legenda-direita">
+                    <div class="box-red"></div>
+                    <span class="legenda-letra">Umidade do solo em Alerta</span>
+                    <div class="box-green"></div>
+                    <span class="legenda-letra">Umidade do solo normal</span>
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="canteiro-box">
+                    <div class="title-canteiro">Setor 1</div>
+                    <div class="sensores-box">
+                        <div class="sensor-box" id="boxsensor1">
+                            <div class="name-sensor">Sensor 1</div>
+                            <div class="data-sensor" id="sensor1">72%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor2">
+                            <div class="name-sensor">Sensor 2</div>
+                            <div class="data-sensor" id="sensor2">73%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor3">
+                            <div class="name-sensor">Sensor 3</div>
+                            <div class="data-sensor" id="sensor3">72%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canteiro-box">
+                    <div class="title-canteiro">Setor 2</div>
+                    <div class="sensores-box">
+                        <div class="sensor-box" id="boxsensor4">
+                            <div class="name-sensor">Sensor 4</div>
+                            <div class="data-sensor" id="sensor4">65%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor5">
+                            <div class="name-sensor">Sensor 5</div>
+                            <div class="data-sensor" id="sensor5">75%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor6">
+                            <div class="name-sensor">Sensor 6</div>
+                            <div class="data-sensor" id="sensor6">76%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canteiro-box">
+                    <div class="title-canteiro">Setor 3</div>
+                    <div class="sensores-box">
+                        <div class="sensor-box" id="boxsensor7">
+                            <div class="name-sensor">Sensor 7</div>
+                            <div class="data-sensor" id="sensor7">50%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor8">
+                            <div class="name-sensor">Sensor 8</div>
+                            <div class="data-sensor" id="sensor8">54%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor9">
+                            <div class="name-sensor">Sensor 9</div>
+                            <div class="data-sensor" id="sensor9">52%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canteiro-box">
+                    <div class="title-canteiro">Setor 4</div>
+                    <div class="sensores-box">
+                        <div class="sensor-box" id="boxsensor10">
+                            <div class="name-sensor">Sensor 10</div>
+                            <div class="data-sensor" id="sensor10">78%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor11">
+                            <div class="name-sensor">Sensor 11</div>
+                            <div class="data-sensor" id="sensor11">77%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor12">
+                            <div class="name-sensor">Sensor 12</div>
+                            <div class="data-sensor" id="sensor12">76%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canteiro-box">
+                    <div class="title-canteiro">Setor 5</div>
+                    <div class="sensores-box">
+                        <div class="sensor-box" id="boxsensor13">
+                            <div class="name-sensor">Sensor 13</div>
+                            <div class="data-sensor" id="sensor13">74%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor14">
+                            <div class="name-sensor">Sensor 14</div>
+                            <div class="data-sensor" id="sensor14">76%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor15">
+                            <div class="name-sensor">Sensor 15</div>
+                            <div class="data-sensor" id="sensor15">76%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canteiro-box">
+                    <div class="title-canteiro">Setor 6</div>
+                    <div class="sensores-box">
+                        <div class="sensor-box" id="boxsensor16">
+                            <div class="name-sensor">Sensor 16</div>
+                            <div class="data-sensor" id="sensor16">72%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor17">
+                            <div class="name-sensor">Sensor 17</div>
+                            <div class="data-sensor" id="sensor17">73%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor18">
+                            <div class="name-sensor">Sensor 18</div>
+                            <div class="data-sensor" id="sensor18">72%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canteiro-box">
+                    <div class="title-canteiro">Setor 7</div>
+                    <div class="sensores-box">
+                        <div class="sensor-box" id="boxsensor19">
+                            <div class="name-sensor">Sensor 19</div>
+                            <div class="data-sensor" id="sensor19">85%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor20">
+                            <div class="name-sensor">Sensor 20</div>
+                            <div class="data-sensor" id="sensor20">88%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor21">
+                            <div class="name-sensor">Sensor 21</div>
+                            <div class="data-sensor" id="sensor21">92%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canteiro-box">
+                    <div class="title-canteiro">Setor 8</div>
+                    <div class="sensores-box">
+                        <div class="sensor-box" id="boxsensor22">
+                            <div class="name-sensor">Sensor 22</div>
+                            <div class="data-sensor" id="sensor22">30%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor23">
+                            <div class="name-sensor">Sensor 23</div>
+                            <div class="data-sensor" id="sensor23">35%</div>
+                        </div>
+                        <div class="sensor-box" id="boxsensor24">
+                            <div class="name-sensor">Sensor 24</div>
+                            <div class="data-sensor" id="sensor24">41%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+<script>
+     document.querySelector('.botao-vertical').addEventListener('click', () => {
+        const menu = document.querySelector('.elements-menu');
+        const botao = document.querySelector('.botao-vertical');
+        menu.classList.toggle('open-menu');
+        botao.classList.toggle('x');
+    });
+    document.querySelector('.menu-shadow').addEventListener('click', () => {
+        const menu = document.querySelector('.elements-menu');
+        const botao = document.querySelector('.botao-vertical');
+        menu.classList.remove('open-menu');
+        botao.classList.remove('x');
+    });
+    document.querySelector('.backto-his').addEventListener('click', () => {
+        window.location.href = 'HistoricodeAlertas.html';
+    });
+    const texto_bem_vindo = document.querySelector('.title-welcome');
+
+    var plotar_textos = setInterval(() => {
+        texto_bem_vindo.innerHTML = `Bem-Vindo, ${sessionStorage.NOME_USUARIO}`;
+        setTimeout(() => {
+            clearInterval(plotar_textos);
+        }, 1000)
+    }, 500)
+</script>
